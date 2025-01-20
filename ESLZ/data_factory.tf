@@ -7,7 +7,7 @@ variable "data_factories" {
 module "data_factory" {
 
     for_each = var.data_factories
-    source = "/home/ken/terraform-azurerm-caf-data-factoryV2"
+    source = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-data-factoryV2"
     location= var.location
     env = var.env
     group = var.group
