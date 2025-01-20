@@ -86,7 +86,7 @@ resource "azurerm_data_factory_linked_service_key_vault" "lskv" {
 resource "azurerm_data_factory_credential_service_principal" "spn" {
   count = try(var.data_factory.service_principal,null) == null ? 0 : 1
   name                 = "${local.data-factory-name}-spn"
-  description          = var.data_factory.service_principal.description
+  description          = try(var.data_factory.service_principal.description, null)
   data_factory_id      = azurerm_data_factory.df.id
   tenant_id            = data.azurerm_client_config.current.tenant_id
   service_principal_id = data.azurerm_client_config.current.client_id
@@ -113,7 +113,7 @@ resource "azurerm_user_assigned_identity" "ui" {
 resource "azurerm_data_factory_credential_user_managed_identity" "mi" {
   count = try(var.data_factory.user_managed_identity,null) == null ? 0 : 1
   name            = azurerm_user_assigned_identity.ui[0].name
-  description     = var.data_factory.user_managed_identity.description
+  description     = try(var.data_factory.user_managed_identity.description, null)
   data_factory_id = azurerm_data_factory.df.id
   identity_id     = azurerm_user_assigned_identity.ui[0].id
 
