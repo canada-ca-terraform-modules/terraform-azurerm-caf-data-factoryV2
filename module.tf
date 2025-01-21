@@ -7,18 +7,9 @@ resource "azurerm_data_factory" "df" {
   managed_virtual_network_enabled = try(var.data_factory.managed_virtual_network_enabled,true)
   public_network_enabled      = try(var.data_factory.public_network_enabled, false)
 
-  dynamic identity {
-    for_each = var.data_factory.identity.type == "SystemAssigned" ? [1] : []
-    content{
+  identity {
     type = var.data_factory.identity.type
-    }
-  }
-  dynamic identity {
-    for_each = var.data_factory.identity.type == "UserAssigned" ? [1] : []
-    content{
-    type = var.data_factory.identity.type
-    identity_ids = [azurerm_user_assigned_identity.ui[0].id]
-    }
+    identity_ids = var.data_factory.identity.type == "UserAssigned" ? [azurerm_user_assigned_identity.ui[0].id] :null
   }
 
   tags                = var.tags
