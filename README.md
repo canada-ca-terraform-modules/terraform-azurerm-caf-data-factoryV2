@@ -13,7 +13,9 @@ No requirements.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_private_endpoint"></a> [private\_endpoint](#module\_private\_endpoint) | github.com/canada-ca-terraform-modules/terraform-azurerm-caf-private_endpoint.git | v1.0.2 |
 
 ## Resources
 
@@ -37,6 +39,7 @@ No modules.
 | <a name="input_group"></a> [group](#input\_group) | (Required) Character string defining the group for the target subscription | `string` | `"test"` | no |
 | <a name="input_key_vault"></a> [key\_vault](#input\_key\_vault) | (Required) List of key vault objects for the postgre SQL server. | `any` | `{}` | no |
 | <a name="input_location"></a> [location](#input\_location) | Azure location for the VM | `string` | `"canadacentral"` | no |
+| <a name="input_private_dns_zone_ids"></a> [private\_dns\_zone\_ids](#input\_private\_dns\_zone\_ids) | Object containing the private DNS zone IDs of the subscription. Used to configure private endpoints | `any` | `{}` | no |
 | <a name="input_project"></a> [project](#input\_project) | (Required) Character string defining the project for the target subscription | `string` | `"test"` | no |
 | <a name="input_resource_groups"></a> [resource\_groups](#input\_resource\_groups) | (Required) Resource group object for the flexible postgre SQL server. | `any` | `{}` | no |
 | <a name="input_subnets"></a> [subnets](#input\_subnets) | (Required) List of subnet objects for the postgre SQL server. | `any` | `{}` | no |
