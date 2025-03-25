@@ -110,3 +110,18 @@ resource "azurerm_data_factory_credential_user_managed_identity" "mi" {
 
   annotations = var.data_factory.user_managed_identity.annotations
 }
+
+# Calls this module if we need a private endpoint attached to the storage account
+module "private_endpoint" {
+  source = "github.com/canada-ca-terraform-modules/terraform-azurerm-caf-private_endpoint.git?ref=v1.0.2"
+  for_each =  try(var.data_factory.private_endpoint, {}) 
+
+  name = "${local.data-factory-name}-${each.key}"
+  location = var.location
+  resource_groups = var.resource_groups
+  subnets = var.subnets
+  private_connection_resource_id = azurerm_data_factory.df.id
+  private_endpoint = each.value
+  private_dns_zone_ids = var.private_dns_zone_ids
+  tags = var.tags
+}
