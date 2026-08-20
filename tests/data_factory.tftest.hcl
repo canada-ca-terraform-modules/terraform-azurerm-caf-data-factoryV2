@@ -176,9 +176,7 @@ run "identity_explicit_override" {
 run "identity_user_assigned_generated" {
   # command=apply: identity_ids[0] compares against azurerm_user_assigned_identity.ui[0].id,
   # which is Computed and unknown until apply (see references/testing.md "Unknown condition value").
-  # state_key isolates this run's applied state so it doesn't leak into later plan-only runs.
-  command   = apply
-  state_key = "identity_user_assigned_generated"
+  command = apply
 
   variables {
     data_factory = {
@@ -191,16 +189,14 @@ run "identity_user_assigned_generated" {
   }
 
   override_resource {
-    target          = azurerm_user_assigned_identity.ui[0]
-    override_during = apply
+    target = azurerm_user_assigned_identity.ui[0]
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.ManagedIdentity/userAssignedIdentities/example-uami"
     }
   }
 
   override_resource {
-    target          = azurerm_data_factory.df
-    override_during = apply
+    target = azurerm_data_factory.df
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.DataFactory/factories/dev-test-df"
     }
@@ -214,8 +210,7 @@ run "identity_user_assigned_generated" {
 
 run "identity_combined_system_and_user_assigned" {
   # command=apply: same Computed-id reason as identity_user_assigned_generated above.
-  command   = apply
-  state_key = "identity_combined_system_and_user_assigned"
+  command = apply
 
   variables {
     data_factory = {
@@ -228,16 +223,14 @@ run "identity_combined_system_and_user_assigned" {
   }
 
   override_resource {
-    target          = azurerm_user_assigned_identity.ui[0]
-    override_during = apply
+    target = azurerm_user_assigned_identity.ui[0]
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.ManagedIdentity/userAssignedIdentities/example-uami"
     }
   }
 
   override_resource {
-    target          = azurerm_data_factory.df
-    override_during = apply
+    target = azurerm_data_factory.df
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.DataFactory/factories/dev-test-df"
     }
@@ -252,8 +245,7 @@ run "identity_combined_system_and_user_assigned" {
 run "user_assigned_identity_new_args" {
   # command=apply: tags is Optional+Computed on this resource, so its value stays
   # unknown/mocked under command=plan (see references/testing.md "Unknown condition value").
-  command   = apply
-  state_key = "user_assigned_identity_new_args"
+  command = apply
 
   variables {
     data_factory = {
@@ -268,16 +260,14 @@ run "user_assigned_identity_new_args" {
   }
 
   override_resource {
-    target          = azurerm_user_assigned_identity.ui[0]
-    override_during = apply
+    target = azurerm_user_assigned_identity.ui[0]
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.ManagedIdentity/userAssignedIdentities/example-uami"
     }
   }
 
   override_resource {
-    target          = azurerm_data_factory.df
-    override_during = apply
+    target = azurerm_data_factory.df
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.DataFactory/factories/dev-test-df"
     }
@@ -295,8 +285,7 @@ run "user_assigned_identity_new_args" {
 
 run "user_assigned_identity_tags_default_to_module_tags" {
   # command=apply: same Optional+Computed tags reason as user_assigned_identity_new_args above.
-  command   = apply
-  state_key = "user_assigned_identity_tags_default_to_module_tags"
+  command = apply
 
   variables {
     data_factory = {
@@ -309,16 +298,14 @@ run "user_assigned_identity_tags_default_to_module_tags" {
   }
 
   override_resource {
-    target          = azurerm_user_assigned_identity.ui[0]
-    override_during = apply
+    target = azurerm_user_assigned_identity.ui[0]
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.ManagedIdentity/userAssignedIdentities/example-uami"
     }
   }
 
   override_resource {
-    target          = azurerm_data_factory.df
-    override_during = apply
+    target = azurerm_data_factory.df
     values = {
       id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-project/providers/Microsoft.DataFactory/factories/dev-test-df"
     }
