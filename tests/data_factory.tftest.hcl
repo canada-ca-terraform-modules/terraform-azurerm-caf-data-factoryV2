@@ -177,6 +177,11 @@ run "identity_user_assigned_generated" {
   # command=apply: identity_ids[0] compares against azurerm_user_assigned_identity.ui[0].id,
   # which is Computed and unknown until apply (see references/testing.md "Unknown condition value").
   command = apply
+  # state_key isolates this run from the other command=apply runs below: they all
+  # create the same azurerm_user_assigned_identity.ui[0] address, and its
+  # lifecycle.ignore_changes = [tags] would otherwise silently keep whichever
+  # tags value was set by the first run to touch the shared main state.
+  state_key = "identity_user_assigned_generated"
 
   variables {
     data_factory = {
@@ -211,6 +216,8 @@ run "identity_user_assigned_generated" {
 run "identity_combined_system_and_user_assigned" {
   # command=apply: same Computed-id reason as identity_user_assigned_generated above.
   command = apply
+  # state_key: see identity_user_assigned_generated above.
+  state_key = "identity_combined_system_and_user_assigned"
 
   variables {
     data_factory = {
@@ -246,6 +253,8 @@ run "user_assigned_identity_new_args" {
   # command=apply: tags is Optional+Computed on this resource, so its value stays
   # unknown/mocked under command=plan (see references/testing.md "Unknown condition value").
   command = apply
+  # state_key: see identity_user_assigned_generated above.
+  state_key = "user_assigned_identity_new_args"
 
   variables {
     data_factory = {
@@ -286,6 +295,8 @@ run "user_assigned_identity_new_args" {
 run "user_assigned_identity_tags_default_to_module_tags" {
   # command=apply: same Optional+Computed tags reason as user_assigned_identity_new_args above.
   command = apply
+  # state_key: see identity_user_assigned_generated above.
+  state_key = "user_assigned_identity_tags_default_to_module_tags"
 
   variables {
     data_factory = {
