@@ -54,3 +54,4 @@ module "data_factory" {
 
   depends_on = [azurerm_role_assignment.live_test_kv_secrets_officer]
 }
+# no-op touch to satisfy live-test.yml's path filter for PR B
